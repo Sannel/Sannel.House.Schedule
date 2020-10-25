@@ -1,0 +1,58 @@
+trigger:
+- master
+- develop
+
+pr:
+- master
+- develop
+- feature/*
+
+variables:
+  sdk_version: 5.0.x
+  sdk_support_preview: false
+  dockerRepositoryRoot: sannel
+  dockerTagBase: $(Build.SourceBranchName)-$(Build.BuildId)
+  mainImageName: house.service
+  repositoryName: Sannel.House.service
+  imageTag: $(Build.SourceBranchName)-$(Build.BuildId)
+  projectFolder: Sannel.House.service
+  tagVersion: 5.0
+  tagCodeName: buster
+  hasTests: true
+  Major: 0
+  Minor: 1
+
+resources:
+  repositories:
+    - repository: templates
+      type: github
+      name: Sannel/Sannel.House.BuildScripts
+      endpoint: Sannel
+
+jobs:
+- template: tasks/docker/linux-arm.yaml@templates
+  parameters:
+    arch: arm32
+    archLong: arm32v7
+    ridSuffix: arm
+    qemuStatic: qemu-arm-static
+    project: $(projectFolder)
+    imageName: $(mainImageName)
+    jobName: service
+    repositoryName: $(repositoryName)
+
+- template: tasks/docker/linux-arm.yaml@templates
+  parameters:
+    arch: arm64
+    archLong: arm64v8
+    project: $(projectFolder)
+    imageName: $(mainImageName)
+    jobName: service
+    repositoryName: $(repositoryName)
+
+- template: tasks/docker/linux-x64-alpine.yaml@templates
+  parameters:
+    project: $(projectFolder)
+    imageName: $(mainImageName)
+    jobName: service
+    repositoryName: $(repositoryName)
