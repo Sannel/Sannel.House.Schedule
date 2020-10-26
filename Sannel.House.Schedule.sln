@@ -1,0 +1,97 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29609.76
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A06F0629-0D85-4C3A-AD98-22BE5C84EC54}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		.gitignore = .gitignore
+		azure-pipelines.yml = azure-pipelines.yml
+		Directory.Build.props = Directory.Build.props
+		LICENSE = LICENSE
+		.nuget\nuget.config = .nuget\nuget.config
+		readme.md = readme.md
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sannel.House.Schedule", "src\Sannel.House.Schedule\Sannel.House.Schedule.csproj", "{FF08D7A2-61F3-4C44-8DB7-134445F10881}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sannel.House.Schedule.Models", "src\Sannel.House.Schedule.Models\Sannel.House.Schedule.Models.csproj", "{F25F2975-D20B-41F7-A43E-76BFA1CD8746}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sannel.House.Schedule.Interfaces", "src\Sannel.House.Schedule.Interfaces\Sannel.House.Schedule.Interfaces.csproj", "{50F48FF5-2175-4D8C-863C-E78C595B7FD0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sannel.House.Schedule.Data", "src\Sannel.House.Schedule.Data\Sannel.House.Schedule.Data.csproj", "{C248A07D-678E-43B8-B1D0-D0A3F8EB72AD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sannel.House.Schedule.Repositories", "src\Sannel.House.Schedule.Repositories\Sannel.House.Schedule.Repositories.csproj", "{112AFE4A-2F6E-4A6F-97DA-5B99AAA6B973}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sannel.House.Schedule.Services", "src\Sannel.House.Schedule.Services\Sannel.House.Schedule.Services.csproj", "{62ED76F4-C523-4CCE-8C55-318530BEBDC4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sannel.House.Schedule.Tests", "src\Sannel.House.Schedule.Tests\Sannel.House.Schedule.Tests.csproj", "{7FB36546-6F26-45D3-8A7A-C2D9EF37E2FF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Migrations", "Migrations", "{9D1C9D06-1D96-40EC-8E93-6B5E987F4840}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sannel.House.Schedule.Data.Migrations.PostgreSQL", "src\Migrations\Sannel.House.Schedule.Data.Migrations.PostgreSQL\Sannel.House.Schedule.Data.Migrations.PostgreSQL.csproj", "{52BA3080-4A24-4CC7-BE75-823FC1DC2180}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sannel.House.Schedule.Data.Migrations.Sqlite", "src\Migrations\Sannel.House.Schedule.Data.Migrations.Sqlite\Sannel.House.Schedule.Data.Migrations.Sqlite.csproj", "{0C60FE27-122A-409C-82AB-0C2653B62EF0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sannel.House.Schedule.Data.Migrations.SqlServer", "src\Migrations\Sannel.House.Schedule.Data.Migrations.SqlServer\Sannel.House.Schedule.Data.Migrations.SqlServer.csproj", "{BBCDBCA7-6A40-4E0B-BAD3-7BA700A0D303}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FF08D7A2-61F3-4C44-8DB7-134445F10881}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF08D7A2-61F3-4C44-8DB7-134445F10881}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF08D7A2-61F3-4C44-8DB7-134445F10881}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF08D7A2-61F3-4C44-8DB7-134445F10881}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F25F2975-D20B-41F7-A43E-76BFA1CD8746}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F25F2975-D20B-41F7-A43E-76BFA1CD8746}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F25F2975-D20B-41F7-A43E-76BFA1CD8746}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F25F2975-D20B-41F7-A43E-76BFA1CD8746}.Release|Any CPU.Build.0 = Release|Any CPU
+		{50F48FF5-2175-4D8C-863C-E78C595B7FD0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{50F48FF5-2175-4D8C-863C-E78C595B7FD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{50F48FF5-2175-4D8C-863C-E78C595B7FD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{50F48FF5-2175-4D8C-863C-E78C595B7FD0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C248A07D-678E-43B8-B1D0-D0A3F8EB72AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C248A07D-678E-43B8-B1D0-D0A3F8EB72AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C248A07D-678E-43B8-B1D0-D0A3F8EB72AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C248A07D-678E-43B8-B1D0-D0A3F8EB72AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{112AFE4A-2F6E-4A6F-97DA-5B99AAA6B973}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{112AFE4A-2F6E-4A6F-97DA-5B99AAA6B973}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{112AFE4A-2F6E-4A6F-97DA-5B99AAA6B973}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{112AFE4A-2F6E-4A6F-97DA-5B99AAA6B973}.Release|Any CPU.Build.0 = Release|Any CPU
+		{62ED76F4-C523-4CCE-8C55-318530BEBDC4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{62ED76F4-C523-4CCE-8C55-318530BEBDC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{62ED76F4-C523-4CCE-8C55-318530BEBDC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{62ED76F4-C523-4CCE-8C55-318530BEBDC4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7FB36546-6F26-45D3-8A7A-C2D9EF37E2FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7FB36546-6F26-45D3-8A7A-C2D9EF37E2FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7FB36546-6F26-45D3-8A7A-C2D9EF37E2FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7FB36546-6F26-45D3-8A7A-C2D9EF37E2FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{52BA3080-4A24-4CC7-BE75-823FC1DC2180}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{52BA3080-4A24-4CC7-BE75-823FC1DC2180}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{52BA3080-4A24-4CC7-BE75-823FC1DC2180}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{52BA3080-4A24-4CC7-BE75-823FC1DC2180}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0C60FE27-122A-409C-82AB-0C2653B62EF0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C60FE27-122A-409C-82AB-0C2653B62EF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C60FE27-122A-409C-82AB-0C2653B62EF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C60FE27-122A-409C-82AB-0C2653B62EF0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BBCDBCA7-6A40-4E0B-BAD3-7BA700A0D303}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BBCDBCA7-6A40-4E0B-BAD3-7BA700A0D303}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BBCDBCA7-6A40-4E0B-BAD3-7BA700A0D303}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BBCDBCA7-6A40-4E0B-BAD3-7BA700A0D303}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{52BA3080-4A24-4CC7-BE75-823FC1DC2180} = {9D1C9D06-1D96-40EC-8E93-6B5E987F4840}
+		{0C60FE27-122A-409C-82AB-0C2653B62EF0} = {9D1C9D06-1D96-40EC-8E93-6B5E987F4840}
+		{BBCDBCA7-6A40-4E0B-BAD3-7BA700A0D303} = {9D1C9D06-1D96-40EC-8E93-6B5E987F4840}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2AAAE196-FA92-4FBD-BB2E-2A1817CD7985}
+	EndGlobalSection
+EndGlobal

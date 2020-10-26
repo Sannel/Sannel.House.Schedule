@@ -1,0 +1,43 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+	<PropertyGroup>
+		<TargetFramework>net5.0</TargetFramework>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="5.0.0-rc.*" />
+		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.9" />
+		<PackageReference Include="IdentityServer4.AccessTokenValidation" Version="3.0.1" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.0-rc.*" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="5.0.0-rc.*" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.0-rc.*" />
+		<PackageReference Include="Microsoft.Extensions.Logging" Version="5.0.0-rc.*" />
+		<PackageReference Include="NetEscapades.Configuration.Yaml" Version="2.0.1" />
+		<PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="5.0.0-rc2" />
+		<PackageReference Include="NSwag.AspNetCore" Version="13.8.2" />
+		<PackageReference Include="Sannel.House.Base.Data" Version="0.9.556-beta" />
+		<PackageReference Include="Sannel.House.Base.Models" Version="0.9.547-beta" />
+		<PackageReference Include="Sannel.House.Base.MQTT" Version="0.1.592-beta" />
+		<PackageReference Include="Sannel.House.Base.Sensor" Version="0.9.549-beta" />
+		<PackageReference Include="Sannel.House.Base.Web" Version="0.9.642-beta" />
+		<PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0-rc.*" />
+		<PackageReference Include="System.Text.Json" Version="5.0.0-rc.*" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Folder Include="Controllers\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\Migrations\Sannel.House.Schedule.Data.Migrations.PostgreSQL\Sannel.House.Schedule.Data.Migrations.PostgreSQL.csproj" />
+	  <ProjectReference Include="..\Migrations\Sannel.House.Schedule.Data.Migrations.Sqlite\Sannel.House.Schedule.Data.Migrations.Sqlite.csproj" />
+	  <ProjectReference Include="..\Migrations\Sannel.House.Schedule.Data.Migrations.SqlServer\Sannel.House.Schedule.Data.Migrations.SqlServer.csproj" />
+	  <ProjectReference Include="..\Sannel.House.Schedule.Data\Sannel.House.Schedule.Data.csproj" />
+	  <ProjectReference Include="..\Sannel.House.Schedule.Interfaces\Sannel.House.Schedule.Interfaces.csproj" />
+	  <ProjectReference Include="..\Sannel.House.Schedule.Models\Sannel.House.Schedule.Models.csproj" />
+	  <ProjectReference Include="..\Sannel.House.Schedule.Repositories\Sannel.House.Schedule.Repositories.csproj" />
+	  <ProjectReference Include="..\Sannel.House.Schedule.Services\Sannel.House.Schedule.Services.csproj" />
+	</ItemGroup>
+
+</Project>

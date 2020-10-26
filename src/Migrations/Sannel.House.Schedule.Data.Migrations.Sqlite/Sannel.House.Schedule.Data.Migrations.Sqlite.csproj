@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net5.0</TargetFramework>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.0-rc.2.20475.6">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="5.0.0-rc.2.20475.6" />
+		<PackageReference Include="Microsoft.Extensions.Logging" Version="5.0.0-rc.2.20475.5" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\..\Sannel.House.Schedule.Data\Sannel.House.Schedule.Data.csproj" />
+	  <ProjectReference Include="..\..\Sannel.House.Schedule.Interfaces\Sannel.House.Schedule.Interfaces.csproj" />
+	  <ProjectReference Include="..\..\Sannel.House.Schedule.Models\Sannel.House.Schedule.Models.csproj" />
+	</ItemGroup>
+
+</Project>

@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net5.0</TargetFramework>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.0-rc.2.20475.6" />
+		<PackageReference Include="Microsoft.Extensions.Logging" Version="5.0.0-rc.*" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Sannel.House.Schedule.Models\Sannel.House.Schedule.Models.csproj" />
+	</ItemGroup>
+
+</Project>
