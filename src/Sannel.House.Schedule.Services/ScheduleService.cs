@@ -17,6 +17,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Sannel.House.Base.MQTT.Interfaces;
+using Sannel.House.Base.Models;
 
 namespace Sannel.House.Schedule.Services
 {
@@ -48,5 +49,23 @@ namespace Sannel.House.Schedule.Services
 			this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
 		}
 
+		/// <summary>
+		/// Gets the schedule asynchronous.
+		/// </summary>
+		/// <param name="scheduleKey">The schedule key.</param>
+		/// <returns></returns>
+		/// <exception cref="NotImplementedException"></exception>
+		public Task<Models.Schedule?> GetScheduleAsync(Guid scheduleKey)
+			=> repository.GetScheduleAsync(scheduleKey);
+
+		/// <summary>
+		/// Gets the schedules paged asynchronous.
+		/// </summary>
+		/// <param name="pageIndex">The index of this page</param>
+		/// <param name="pageSize">The size of the page</param>
+		/// <returns></returns>
+		/// <exception cref="NotImplementedException"></exception>
+		public Task<PagedResponseModel<Models.Schedule>> GetSchedulesAsync(int pageIndex, int pageSize)
+			=> repository.GetSchedulesAsync(pageIndex, pageSize);
 	}
 }

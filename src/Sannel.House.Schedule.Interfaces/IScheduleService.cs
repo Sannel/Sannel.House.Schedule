@@ -20,5 +20,19 @@ namespace Sannel.House.Schedule.Interfaces
 {
 	public interface IScheduleService
 	{
+		/// <summary>
+		/// Gets the schedule asynchronous.
+		/// </summary>
+		/// <param name="scheduleKey">The schedule key.</param>
+		/// <returns></returns>
+		Task<Models.Schedule?> GetScheduleAsync(Guid scheduleKey);
+
+		/// <summary>
+		/// Gets the schedules paged asynchronous.
+		/// </summary>
+		/// <param name="pageIndex">The index of this page</param>
+		/// <param name="pageSize">The size of the page</param>
+		/// <returns></returns>
+		Task<PagedResponseModel<Models.Schedule>> GetSchedulesAsync(int pageIndex, int pageSize);
 	}
 }
