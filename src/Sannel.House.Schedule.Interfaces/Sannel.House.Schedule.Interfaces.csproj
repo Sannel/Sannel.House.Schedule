@@ -8,6 +8,7 @@
 	<ItemGroup>
 		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.0-rc.2.20475.6" />
 		<PackageReference Include="Microsoft.Extensions.Logging" Version="5.0.0-rc.*" />
+		<PackageReference Include="Sannel.House.Base.Models" Version="0.9.547-beta" />
 	</ItemGroup>
 
 	<ItemGroup>

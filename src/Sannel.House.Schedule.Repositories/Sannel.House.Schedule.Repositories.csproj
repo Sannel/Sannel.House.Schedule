@@ -9,4 +9,10 @@
 		<PackageReference Include="Microsoft.Extensions.Logging" Version="5.0.0-rc.*" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <ProjectReference Include="..\Sannel.House.Schedule.Data\Sannel.House.Schedule.Data.csproj" />
+	  <ProjectReference Include="..\Sannel.House.Schedule.Interfaces\Sannel.House.Schedule.Interfaces.csproj" />
+	  <ProjectReference Include="..\Sannel.House.Schedule.Models\Sannel.House.Schedule.Models.csproj" />
+	</ItemGroup>
+
 </Project>

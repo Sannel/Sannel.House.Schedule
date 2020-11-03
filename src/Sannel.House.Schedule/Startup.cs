@@ -23,6 +23,8 @@ using Sannel.House.Base.Data;
 using Sannel.House.Base.Web;
 using Sannel.House.Schedule.Data;
 using Sannel.House.Schedule.Data.Migrations;
+using Sannel.House.Schedule.Interfaces;
+using Sannel.House.Schedule.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -74,6 +76,9 @@ namespace Sannel.House.Schedule
 						break;
 				}
 			});
+
+			services.AddTransient<IScheduleContext, ScheduleDbContext>()
+				.AddTransient<IScheduleRepository, ScheduleRepository>();
 
 
 			services.AddAuthentication(Configuration["Authentication:Schema"])
@@ -131,6 +136,7 @@ namespace Sannel.House.Schedule
 
 				if (!db.WaitForServer(logger))
 				{
+					logger.LogCritical("DB Server is not reachable");
 					throw new Exception("Shutting Down");
 				}
 			}

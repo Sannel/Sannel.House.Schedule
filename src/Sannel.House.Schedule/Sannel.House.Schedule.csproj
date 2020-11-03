@@ -26,10 +26,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Folder Include="Controllers\" />
-	</ItemGroup>
-
-	<ItemGroup>
 	  <ProjectReference Include="..\Migrations\Sannel.House.Schedule.Data.Migrations.PostgreSQL\Sannel.House.Schedule.Data.Migrations.PostgreSQL.csproj" />
 	  <ProjectReference Include="..\Migrations\Sannel.House.Schedule.Data.Migrations.Sqlite\Sannel.House.Schedule.Data.Migrations.Sqlite.csproj" />
 	  <ProjectReference Include="..\Migrations\Sannel.House.Schedule.Data.Migrations.SqlServer\Sannel.House.Schedule.Data.Migrations.SqlServer.csproj" />

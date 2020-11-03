@@ -2,7 +2,7 @@
 
 	<PropertyGroup>
 		<TargetFramework>net5.0</TargetFramework>
-		<Nullable>enable</Nullable>
+		<Nullable>disable</Nullable>
 		<IsPackable>false</IsPackable>
 	</PropertyGroup>
 
@@ -14,14 +14,28 @@
 		<PackageReference Include="Moq" Version="4.14.7" />
 		<PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="5.0.0-rc2" />
 		<PackageReference Include="xunit" Version="2.4.1" />
+		<PackageReference Include="Sannel.House.Base.Messages" Version="0.1.544-beta" />
+		<PackageReference Include="Sannel.House.Base.Web" Version="0.9.642-beta" />
+		<PackageReference Include="Sannel.House.Base.Tests" Version="0.9.561-beta" />
+
 		<PackageReference Include="xunit.runner.visualstudio" Version="2.4.3">
-		  <PrivateAssets>all</PrivateAssets>
-		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
 		<PackageReference Include="coverlet.collector" Version="1.3.0">
-		  <PrivateAssets>all</PrivateAssets>
-		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\Migrations\Sannel.House.Schedule.Data.Migrations.Sqlite\Sannel.House.Schedule.Data.Migrations.Sqlite.csproj" />
+	  <ProjectReference Include="..\Sannel.House.Schedule.Data\Sannel.House.Schedule.Data.csproj" />
+	  <ProjectReference Include="..\Sannel.House.Schedule.Interfaces\Sannel.House.Schedule.Interfaces.csproj" />
+	  <ProjectReference Include="..\Sannel.House.Schedule.Models\Sannel.House.Schedule.Models.csproj" />
+	  <ProjectReference Include="..\Sannel.House.Schedule.Repositories\Sannel.House.Schedule.Repositories.csproj" />
+	  <ProjectReference Include="..\Sannel.House.Schedule.Services\Sannel.House.Schedule.Services.csproj" />
+	  <ProjectReference Include="..\Sannel.House.Schedule\Sannel.House.Schedule.csproj" />
 	</ItemGroup>
 
 </Project>
