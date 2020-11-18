@@ -2,7 +2,7 @@
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
    You may obtain a copy of the License at
-      http://www.apache.org/licenses/LICENSE-2.0
+	  http://www.apache.org/licenses/LICENSE-2.0
    Unless required by applicable law or agreed to in writing, software
    distributed under the License is distributed on an "AS IS" BASIS,
    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -109,6 +109,88 @@ namespace Sannel.House.Schedule.Tests.Services
 			Assert.Equal(expectedSchedule.DefaultMaxValue, result.DefaultMaxValue);
 			Assert.Equal(expectedSchedule.DefaultMinValue, result.DefaultMinValue);
 			Assert.Equal(expectedSchedule.MinimumDifference, result.MinimumDifference);
+		}
+
+		[Fact]
+		public async Task GetSchedulesAsyncTest()
+		{
+			using var context = CreateTestDB();
+			var logger = CreateLogger<ScheduleService>();
+
+			var mqtt = new Mock<IMqttClientPublishService>();
+			mqtt.Setup(i => i.Publish(It.IsAny<Object>()))
+				.Throws(new Exception("Called to Publish"));
+
+			mqtt.Setup(i => i.PublishAsync(It.IsAny<Object>()))
+				.Throws(new Exception("Called to PublishAsync"));
+
+			var items = new List<Models.Schedule>()
+			{
+				new Models.Schedule()
+				{
+					ScheduleId = Random.Next(),
+					ScheduleKey = Guid.NewGuid(),
+					Name = $"Test {Random.NextDouble()}",
+					DefaultMaxValue = Random.Next(50, 100),
+					DefaultMinValue = Random.Next(1, 40),
+					MinimumDifference = Random.Next(1,5)
+				},
+				new Models.Schedule()
+				{
+					ScheduleId = Random.Next(),
+					ScheduleKey = Guid.NewGuid(),
+					Name = $"Test {Random.NextDouble()}",
+					DefaultMaxValue = Random.Next(50, 100),
+					DefaultMinValue = Random.Next(1, 40),
+					MinimumDifference = Random.Next(1,5)
+				}
+			};
+
+			var repository = new Mock<IScheduleRepository>();
+
+			var testId = Guid.NewGuid();
+			var called = 0;
+			repository.Setup(i => i.GetSchedulesAsync(It.IsAny<int>(), It.IsAny<int>()))
+				.ReturnsAsync((int pageIndex, int pageSize) =>
+				{
+					called++;
+					Assert.Equal(4, pageIndex);
+					Assert.Equal(2, pageSize);
+
+					return new PagedResponseModel<Models.Schedule>(string.Empty, items, 300, pageIndex, pageSize);
+				});
+
+			var service = new ScheduleService(repository.Object,
+				mqtt.Object,
+				logger);
+
+			var result = await service.GetSchedulesAsync(4, 2);
+			Assert.NotNull(result);
+			Assert.Equal(string.Empty, result.Title);
+			Assert.Equal(2, result.PageSize);
+			Assert.Equal(4, result.Page);
+			Assert.Equal(300, result.TotalCount);
+
+			Assert.NotNull(result.Data);
+			Assert.Equal(2, result.Data.Count());
+
+			var expected = items[0];
+			var actual = result.Data.First();
+			Assert.Equal(expected.ScheduleId, actual.ScheduleId);
+			Assert.Equal(expected.ScheduleKey, actual.ScheduleKey);
+			Assert.Equal(expected.Name, actual.Name);
+			Assert.Equal(expected.DefaultMaxValue, actual.DefaultMaxValue);
+			Assert.Equal(expected.DefaultMinValue, actual.DefaultMinValue);
+			Assert.Equal(expected.MinimumDifference, actual.MinimumDifference);
+
+			expected = items[1];
+			actual = result.Data.Last();
+			Assert.Equal(expected.ScheduleId, actual.ScheduleId);
+			Assert.Equal(expected.ScheduleKey, actual.ScheduleKey);
+			Assert.Equal(expected.Name, actual.Name);
+			Assert.Equal(expected.DefaultMaxValue, actual.DefaultMaxValue);
+			Assert.Equal(expected.DefaultMinValue, actual.DefaultMinValue);
+			Assert.Equal(expected.MinimumDifference, actual.MinimumDifference);
 		}
 	}
 }

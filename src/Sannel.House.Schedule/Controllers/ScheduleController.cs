@@ -13,6 +13,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Sannel.House.Base.Models;
+using Sannel.House.Base.Web;
 using Sannel.House.Schedule.Interfaces;
 using Sannel.House.Schedule.ViewModel;
 using System;
@@ -38,12 +40,31 @@ namespace Sannel.House.Schedule.Controllers
 		}
 
 		[HttpGet]
+		[HttpGet("{scheduleKey}")]
 		[Authorize(Roles = "ScheduleRead,Admin")]
 		[ProducesResponseType(200, Type = typeof(Sannel.House.Base.Models.ResponseModel<ScheduleModel>))]
+		[ProducesResponseType(404, Type = typeof(Sannel.House.Base.Models.ErrorResponseModel))]
 		[ProducesResponseType(400, Type = typeof(Sannel.House.Base.Models.ErrorResponseModel))]
-		public IActionResult Get([Required]Guid scheduleKey)
+		public async Task<IActionResult?> Get([Required]Guid scheduleKey)
 		{
-			return null;
+			if(ModelState.IsValid)
+			{
+				var schedule = await service.GetScheduleAsync(scheduleKey);
+				if (schedule is null)
+				{
+					logger.LogInformation("Unable to find schedule with schedulekey {scheduleKey}", scheduleKey);
+					return NotFound(new ResponseModel<ScheduleModel?>(System.Net.HttpStatusCode.NotFound, "Not Found", null));
+				}
+				else
+				{
+					return Ok(new ResponseModel<ScheduleModel>(System.Net.HttpStatusCode.OK, "Found", (ScheduleModel)schedule));
+				}
+			}
+			else
+			{
+				logger.LogInformation("Invalid request to get schedule");
+				return new BadRequestObjectResult(new ErrorResponseModel(System.Net.HttpStatusCode.BadRequest, "Invalid Model").FillWithStateDictionary(ModelState));
+			}
 		}
 	}
 }

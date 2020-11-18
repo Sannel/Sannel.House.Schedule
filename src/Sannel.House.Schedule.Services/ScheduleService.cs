@@ -54,9 +54,27 @@ namespace Sannel.House.Schedule.Services
 		/// </summary>
 		/// <param name="scheduleKey">The schedule key.</param>
 		/// <returns></returns>
-		/// <exception cref="NotImplementedException"></exception>
-		public Task<Models.Schedule?> GetScheduleAsync(Guid scheduleKey)
-			=> repository.GetScheduleAsync(scheduleKey);
+		public async Task<Models.Schedule?> GetScheduleAsync(Guid scheduleKey)
+		{
+			logger.LogDebug("Getting Schedule by ScheduleKey {scheduleKey}", scheduleKey);
+			var result = await repository.GetScheduleAsync(scheduleKey);
+
+			if(result is null)
+			{
+				logger.LogInformation("No Schedule found for scheduleKey {scheduleKey}", scheduleKey);
+			}
+			else
+			{
+				logger.LogInformation("Found Schedule for scheduleKey {scheduleKey}", scheduleKey);
+
+				if(logger.IsEnabled(LogLevel.Debug))
+				{
+					logger.LogDebug("Schedule Information: Name {name}, ScheduleId {scheduleId}", result.Name, result.ScheduleId);
+				}
+			}
+
+			return result;
+		}
 
 		/// <summary>
 		/// Gets the schedules paged asynchronous.
@@ -64,8 +82,13 @@ namespace Sannel.House.Schedule.Services
 		/// <param name="pageIndex">The index of this page</param>
 		/// <param name="pageSize">The size of the page</param>
 		/// <returns></returns>
-		/// <exception cref="NotImplementedException"></exception>
-		public Task<PagedResponseModel<Models.Schedule>> GetSchedulesAsync(int pageIndex, int pageSize)
-			=> repository.GetSchedulesAsync(pageIndex, pageSize);
+		public async Task<PagedResponseModel<Models.Schedule>> GetSchedulesAsync(int pageIndex, int pageSize)
+		{
+			logger.LogDebug("Getting Schedules in Page Index {pageIndex} and of Page Size {pageSize}", pageIndex, pageSize);
+
+			var result = await repository.GetSchedulesAsync(pageIndex, pageSize);
+
+			return result;
+		}
 	}
 }

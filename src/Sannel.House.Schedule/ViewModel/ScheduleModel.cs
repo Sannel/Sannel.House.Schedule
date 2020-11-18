@@ -56,5 +56,29 @@ namespace Sannel.House.Schedule.ViewModel
 		/// The minimum difference.
 		/// </value>
 		public double MinimumDifference { get; set; }
+
+		/// <summary>
+		/// Performs an explicit conversion from <see cref="Models.Schedule"/> to <see cref="ScheduleModel"/>.
+		/// </summary>
+		/// <param name="schedule">The schedule.</param>
+		/// <returns>
+		/// The result of the conversion.
+		/// </returns>
+		public static explicit operator ScheduleModel(Models.Schedule schedule)
+		{
+			if(schedule is null)
+			{
+				return null;
+			}
+
+			return new ScheduleModel()
+			{
+				ScheduleKey = schedule.ScheduleKey,
+				Name = schedule.Name,
+				MinimumDifference = schedule.MinimumDifference,
+				DefaultMaxValue = schedule.DefaultMaxValue,
+				DefaultMinValue = schedule.DefaultMinValue
+			};
+		}
 	}
 }
