@@ -15,9 +15,9 @@
 		<PackageReference Include="Microsoft.Extensions.Logging" Version="5.0.*" />
 		<PackageReference Include="NetEscapades.Configuration.Yaml" Version="2.0.1" />
 		<PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="5.0.*" />
-		<PackageReference Include="NSwag.AspNetCore" Version="13.9.3" />
+		<PackageReference Include="NSwag.AspNetCore" Version="13.9.4" />
 		<PackageReference Include="Sannel.House.Base.Data" Version="0.9.556-beta" />
-		<PackageReference Include="Sannel.House.Base.Models" Version="0.9.547-beta" />
+		<PackageReference Include="Sannel.House.Base.Models" Version="0.9.667-beta" />
 		<PackageReference Include="Sannel.House.Base.MQTT" Version="0.1.592-beta" />
 		<PackageReference Include="Sannel.House.Base.Sensor" Version="0.9.549-beta" />
 		<PackageReference Include="Sannel.House.Base.Web" Version="0.9.642-beta" />

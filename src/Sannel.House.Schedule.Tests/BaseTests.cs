@@ -16,6 +16,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Xunit;
 
 namespace Sannel.House.Schedule.Tests
 {
@@ -37,5 +38,36 @@ namespace Sannel.House.Schedule.Tests
 		/// </value>
 		public override Type MigrationAssemblyType
 			=> typeof(Sannel.House.Schedule.Data.Migrations.Sqlite.DevicesDesignTimeFactory);
+
+		protected Models.Schedule GenerateSchedule(int? id = null)
+		{
+			var i = id ?? Random.Next(1, int.MaxValue);
+			return new Models.Schedule()
+			{
+				ScheduleId = i,
+				ScheduleKey = Guid.NewGuid(),
+				Name = $"Schedule {i}",
+				MinimumDifference = Random.Next(5,10),
+				DefaultMinValue = Random.Next(0, 40),
+				DefaultMaxValue = Random.Next(50, 100)
+			};
+		}
+
+		protected void AssertEqual(Models.Schedule expected, ViewModel.ScheduleModel actual)
+		{
+			if(expected is null)
+			{
+				Assert.Null(actual);
+			}
+			else
+			{
+				Assert.NotNull(actual);
+				Assert.Equal(expected.ScheduleKey, actual.ScheduleKey);
+				Assert.Equal(expected.Name, actual.Name);
+				Assert.Equal(expected.MinimumDifference, actual.MinimumDifference);
+				Assert.Equal(expected.DefaultMinValue, actual.DefaultMinValue);
+				Assert.Equal(expected.DefaultMaxValue, actual.DefaultMaxValue);
+			}
+		}
 	}
 }

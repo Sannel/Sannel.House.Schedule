@@ -64,7 +64,7 @@ namespace Sannel.House.Schedule.Tests.Repositories
 		}
 
 		[Fact]
-		public async Task GetSetScheduleKeyTestAsync()
+		public async Task GetSetSchedulesKeyTestAsync()
 		{
 			using var context = CreateTestDB();
 			var logger = CreateLogger<ScheduleRepository>();

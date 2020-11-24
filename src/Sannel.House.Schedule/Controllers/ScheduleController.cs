@@ -45,7 +45,7 @@ namespace Sannel.House.Schedule.Controllers
 		[ProducesResponseType(200, Type = typeof(Sannel.House.Base.Models.ResponseModel<ScheduleModel>))]
 		[ProducesResponseType(404, Type = typeof(Sannel.House.Base.Models.ErrorResponseModel))]
 		[ProducesResponseType(400, Type = typeof(Sannel.House.Base.Models.ErrorResponseModel))]
-		public async Task<IActionResult?> Get([Required]Guid scheduleKey)
+		public async Task<IActionResult> Get([Required]Guid scheduleKey)
 		{
 			if(ModelState.IsValid)
 			{
@@ -63,6 +63,46 @@ namespace Sannel.House.Schedule.Controllers
 			else
 			{
 				logger.LogInformation("Invalid request to get schedule");
+				return new BadRequestObjectResult(new ErrorResponseModel(System.Net.HttpStatusCode.BadRequest, "Invalid Model").FillWithStateDictionary(ModelState));
+			}
+		}
+
+		[HttpGet("Paged")]
+		[HttpGet("Paged/{pageIndex}/{pageSize}")]
+		[Authorize(Roles = "ScheduleRead,Admin")]
+		[ProducesResponseType(200, Type = typeof(Sannel.House.Base.Models.PagedResponseModel<ScheduleModel>))]
+		[ProducesResponseType(400, Type=typeof(Sannel.House.Base.Models.ErrorResponseModel))]
+		public async Task<IActionResult> GetPaged(
+			[Required]
+			[Range(0,int.MaxValue)]
+			int pageIndex, 
+			[Required]
+			[Range(1, 1000)]
+			int pageSize)
+		{
+			if(ModelState.IsValid)
+			{
+				var result = await service.GetSchedulesAsync(pageIndex, pageSize);
+				if(result is null)
+				{
+					return new OkObjectResult(new PagedResponseModel<ViewModel.ScheduleModel>("Paged Results",
+						new List<ViewModel.ScheduleModel>(),
+						0,
+						pageIndex,
+						pageSize));
+				}
+				else
+				{
+					return new OkObjectResult(new PagedResponseModel<ViewModel.ScheduleModel>("Paged Results",
+						result.Data.Select(i => (ViewModel.ScheduleModel)i),
+						result.TotalCount,
+						result.Page,
+						result.PageSize));
+				}
+			}
+			else
+			{
+				logger.LogInformation("Invalid request to get paged. pageIndex: {pageIndex} pageSize: {pageSize}", pageIndex, pageSize);
 				return new BadRequestObjectResult(new ErrorResponseModel(System.Net.HttpStatusCode.BadRequest, "Invalid Model").FillWithStateDictionary(ModelState));
 			}
 		}
