@@ -192,5 +192,51 @@ namespace Sannel.House.Schedule.Tests.Services
 			Assert.Equal(expected.DefaultMinValue, actual.DefaultMinValue);
 			Assert.Equal(expected.MinimumDifference, actual.MinimumDifference);
 		}
+
+		[Fact]
+		public async Task ExistsAsync_Test()
+		{
+			using var context = CreateTestDB();
+			var logger = CreateLogger<ScheduleService>();
+
+			var mqtt = new Mock<IMqttClientPublishService>();
+			mqtt.Setup(i => i.Publish(It.IsAny<object>()))
+				.Throws(new Exception("Called to Publish"));
+
+			mqtt.Setup(i => i.PublishAsync(It.IsAny<object>()))
+				.Throws(new Exception("Called to PublishAsync"));
+
+			var repository = new Mock<IScheduleRepository>();
+
+			var testId = Guid.NewGuid();
+			var exists = false;
+			var called = 0;
+
+			repository.Setup(i => i.ExistsAsync(It.IsAny<Guid>()))
+				.ReturnsAsync((Guid id) =>
+				{
+					called++;
+					Assert.Equal(testId, id);
+					return exists;
+				});
+
+			var service = new ScheduleService(repository.Object,
+				mqtt.Object,
+				logger);
+
+			var result = await service.ExistsAsync(testId);
+
+			Assert.False(result);
+			Assert.Equal(1, called);
+
+			exists = true;
+
+			result = await service.ExistsAsync(testId);
+
+			Assert.True(result);
+			Assert.Equal(2, called);
+
+
+		}
 	}
 }

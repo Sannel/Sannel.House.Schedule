@@ -18,6 +18,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Sannel.House.Base.MQTT.Interfaces;
 using Sannel.House.Base.Models;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Sannel.House.Schedule.Services
 {
@@ -90,5 +91,9 @@ namespace Sannel.House.Schedule.Services
 
 			return result;
 		}
+
+		public Task<bool> ExistsAsync([NotNull] Guid schedulekey)
+			=> repository.ExistsAsync(schedulekey);
+		public Task<Guid?> AddScheduleAsync([NotNull] Models.Schedule schedule) => throw new NotImplementedException();
 	}
 }

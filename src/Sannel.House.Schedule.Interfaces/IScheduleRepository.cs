@@ -11,6 +11,7 @@
 
 using Sannel.House.Base.Models;
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -32,5 +33,19 @@ namespace Sannel.House.Schedule.Interfaces
 		/// <param name="pageSize">The size of the page</param>
 		/// <returns></returns>
 		Task<PagedResponseModel<Models.Schedule>> GetSchedulesAsync(int pageIndex, int pageSize);
+
+		/// <summary>
+		/// Does a schedule with <paramref name="schedulekey"/> exist
+		/// </summary>
+		/// <param name="schedulekey">The schedulekey.</param>
+		/// <returns></returns>
+		Task<bool> ExistsAsync([NotNull] Guid schedulekey);
+
+		/// <summary>
+		/// Adds the schedule asynchronous.
+		/// </summary>
+		/// <param name="schedule">The schedule.</param>
+		/// <returns></returns>
+		Task<Guid?> AddScheduleAsync([NotNull]Models.Schedule schedule);
 	}
 }

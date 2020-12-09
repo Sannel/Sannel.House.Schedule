@@ -21,6 +21,21 @@ namespace Sannel.House.Schedule.Tests.Repositories
 {
 	public class ScheduleRepositoryTests : BaseTests
 	{
+		private void Equals(Models.Schedule expected, Models.Schedule actual)
+		{
+			if(expected is null)
+			{
+				Assert.Null(actual);
+			}
+
+			Assert.NotNull(actual);
+			Assert.Equal(expected.Name, actual.Name);
+			Assert.Equal(expected.ScheduleKey, actual.ScheduleKey);
+			Assert.Equal(expected.DefaultMaxValue, actual.DefaultMaxValue);
+			Assert.Equal(expected.DefaultMinValue, actual.DefaultMinValue);
+			Assert.Equal(expected.MinimumDifference, actual.MinimumDifference);
+		}
+
 		[Fact]
 		public async Task GetUnknownScheduleKeyTestAsync()
 		{
@@ -57,10 +72,7 @@ namespace Sannel.House.Schedule.Tests.Repositories
 			var result = await repository.GetScheduleAsync(schedule.ScheduleKey);
 
 			Assert.NotNull(result);
-			Assert.Equal(schedule.Name, result.Name);
-			Assert.Equal(schedule.DefaultMinValue, result.DefaultMinValue);
-			Assert.Equal(schedule.DefaultMaxValue, result.DefaultMaxValue);
-			Assert.Equal(schedule.MinimumDifference, result.MinimumDifference);
+			Equals(schedule, result);
 		}
 
 		[Fact]
@@ -109,11 +121,7 @@ namespace Sannel.House.Schedule.Tests.Repositories
 			foreach(var actual in result.Data)
 			{
 				var expected = items[currentIndex++];
-				Assert.Equal(expected.Name, actual.Name);
-				Assert.Equal(expected.ScheduleKey, actual.ScheduleKey);
-				Assert.Equal(expected.DefaultMaxValue, actual.DefaultMaxValue);
-				Assert.Equal(expected.DefaultMinValue, actual.DefaultMinValue);
-				Assert.Equal(expected.MinimumDifference, actual.MinimumDifference);
+				Equals(expected, actual);
 			}
 
 			result = await repository.GetSchedulesAsync(1, 10);
@@ -127,11 +135,7 @@ namespace Sannel.House.Schedule.Tests.Repositories
 			foreach(var actual in result.Data)
 			{
 				var expected = items[currentIndex++];
-				Assert.Equal(expected.Name, actual.Name);
-				Assert.Equal(expected.ScheduleKey, actual.ScheduleKey);
-				Assert.Equal(expected.DefaultMaxValue, actual.DefaultMaxValue);
-				Assert.Equal(expected.DefaultMinValue, actual.DefaultMinValue);
-				Assert.Equal(expected.MinimumDifference, actual.MinimumDifference);
+				Equals(expected, actual);
 			}
 
 			result = await repository.GetSchedulesAsync(3, 15);
@@ -145,12 +149,78 @@ namespace Sannel.House.Schedule.Tests.Repositories
 			foreach(var actual in result.Data)
 			{
 				var expected = items[currentIndex++];
-				Assert.Equal(expected.Name, actual.Name);
-				Assert.Equal(expected.ScheduleKey, actual.ScheduleKey);
-				Assert.Equal(expected.DefaultMaxValue, actual.DefaultMaxValue);
-				Assert.Equal(expected.DefaultMinValue, actual.DefaultMinValue);
-				Assert.Equal(expected.MinimumDifference, actual.MinimumDifference);
+				Equals(expected, actual);
 			}
+		}
+
+		[Fact]
+		public async Task ExistsAsync_Test()
+		{
+			using var context = CreateTestDB();
+			var logger = CreateLogger<ScheduleRepository>();
+
+			var repository = new ScheduleRepository(context, logger);
+
+			var items = new List<Models.Schedule>();
+
+			for(var i=0;i<100;i++)
+			{
+				var schedule = new Models.Schedule()
+				{
+					ScheduleKey = Guid.NewGuid(),
+					DefaultMaxValue = Random.Next(50,100),
+					DefaultMinValue = Random.Next(1,40),
+					MinimumDifference = Random.Next(1,10),
+					Name = $"Test Name {i}"
+				};
+
+				await context.AddAsync(schedule);
+				items.Add(schedule);
+				await context.SaveChangesAsync();
+			}
+
+			var index = Random.Next(0, items.Count);
+
+			var item = items[index];
+
+			Assert.False(await repository.ExistsAsync(Guid.NewGuid()));
+			Assert.True(await repository.ExistsAsync(item.ScheduleKey));
+
+		}
+
+		[Fact]
+		public async Task AddScheduleAsync_Test()
+		{
+			using var context = CreateTestDB();
+			var logger = CreateLogger<ScheduleRepository>();
+
+			var repository = new ScheduleRepository(context, logger);
+
+			var schedule = new Models.Schedule()
+			{
+				ScheduleKey = Guid.NewGuid(),
+				DefaultMaxValue = Random.Next(60, 2000),
+				DefaultMinValue = Random.Next(0, 50),
+				MinimumDifference = Random.Next(0, 5),
+				Name = $"Random {Guid.NewGuid()}"
+			};
+
+			var result = await repository.AddScheduleAsync(schedule);
+			Assert.NotNull(result);
+			Assert.Single(context.Schedules);
+			var first = context.Schedules.FirstOrDefault();
+			Equals(schedule, first);
+		}
+		[Fact]
+		public async Task AddScheduleAsync_NullTest()
+		{
+			using var context = CreateTestDB();
+			var logger = CreateLogger<ScheduleRepository>();
+
+			var repository = new ScheduleRepository(context, logger);
+
+			var result = await Assert.ThrowsAsync<ArgumentNullException>(() => repository.AddScheduleAsync(null));
+			Assert.Equal("schedule", result.ParamName);
 		}
 	}
 }

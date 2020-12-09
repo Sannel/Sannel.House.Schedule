@@ -16,6 +16,7 @@ using Sannel.House.Schedule.Data;
 using Sannel.House.Schedule.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -42,6 +43,34 @@ namespace Sannel.House.Schedule.Repositories
 		{
 			this.context = context ?? throw new ArgumentNullException(nameof(context));
 			this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
+		}
+
+		/// <summary>
+		/// Adds the schedule asynchronous.
+		/// </summary>
+		/// <param name="schedule">The schedule.</param>
+		/// <returns></returns>
+		/// <exception cref="ArgumentNullException">schedule</exception>
+		public async Task<Guid?> AddScheduleAsync([NotNull] Models.Schedule schedule)
+		{
+			if(schedule is null)
+			{
+				throw new ArgumentNullException(nameof(schedule));
+			}
+
+			if(await context.Schedules.AnyAsync(i => i.ScheduleKey == schedule.ScheduleKey))
+			{
+				logger.LogWarning("Duplicate ScheduleKey attempted to be added {ScheduleKey}", schedule.ScheduleKey);
+
+				return null;
+			}
+
+			var result = await context.Schedules.AddAsync(schedule);
+			await context.SaveChangesAsync();
+
+			result.State = EntityState.Detached;
+
+			return result.Entity.ScheduleKey;
 		}
 
 		/// <summary>
@@ -85,5 +114,13 @@ namespace Sannel.House.Schedule.Repositories
 
 			return response;
 		}
+
+		/// <summary>
+		/// Does a schedule with <paramref name="schedulekey" /> exist
+		/// </summary>
+		/// <param name="schedulekey">The schedulekey.</param>
+		/// <returns></returns>
+		public Task<bool> ExistsAsync([NotNull] Guid schedulekey)
+			=> context.Schedules.AnyAsync(i => i.ScheduleKey == schedulekey);
 	}
 }
